@@ -17,10 +17,5 @@ jobs:
       - name: Get repository name
         run: echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
 
-      - name: Debug
-        run: |
-          echo ${{github.REPOSITORY_OWNER}}
-          echo ${{env.REPO_NAME}}
-
       - name: Push role to ansible-galaxy
         run: ansible-galaxy role import --token ${{secrets.GALAXY_TOKEN}} ${{github.REPOSITORY_OWNER}} ${{env.REPO_NAME}}
