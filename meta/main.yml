@@ -9,6 +9,3 @@ galaxy_info:
   galaxy_tags:
     - dns
     - network
-
-  versions:
-    - 1.0.0
