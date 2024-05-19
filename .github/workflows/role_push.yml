@@ -14,5 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Get repository name
+        run: echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
+
       - name: Push role to ansible-galaxy
-        run: ansible-galaxy role import --token {{ GALAXY_TOKEN }}
+        run: ansible-galaxy role import --token {{ GALAXY_TOKEN }} {{github.GITHUB_REPOSITORY_OWNER}} {{env.REPO_NAME}}
