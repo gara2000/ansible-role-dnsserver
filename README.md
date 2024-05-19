@@ -24,6 +24,7 @@ No dependencies
 Example Playbook
 ----------------
 
+```bash
 - hosts: servers
   vars:
     domain: "my_domain.net"
@@ -35,6 +36,7 @@ Example Playbook
         ip: 192.168.60.6
   roles:
       - gara2000.dnsserver
+```
 
 License
 -------
