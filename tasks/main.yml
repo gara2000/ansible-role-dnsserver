@@ -1,0 +1,56 @@
+---
+# tasks file for dnsserver
+
+- name: Verify that the dnsserver_ip variable is defined
+  assert:
+    that: dnsserver_ip is defined
+    msg: "Variable 'dnsserver_ip' should be defined (should have the ip of this server)"
+
+- name: Install bind9
+  apt:
+    name:
+      - bind9
+      - bind9utils
+      - bind9-doc
+      - bind9-host
+      - net-tools
+    state: present
+    update_cache: yes
+
+- name: Global configuration in /etc/bind/named.conf.options
+  template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+
+- name: Local configuration in /etc/bind/named.conf.local
+  template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+
+- name: Enable the DNS server in /etc/systemd/resolved.conf
+  template:
+    src: resolved.conf.j2
+    dest: /etc/systemd/resolved.conf
+
+- name: "Configure DNS Records in /etc/bind/db.{{ domain }}"
+  template:
+    src: db.domain_name.j2
+    dest: "/etc/bind/db.{{ domain }}"
+
+- name: open ports 53 to public
+  ufw:
+    rule: allow
+    port: "53"
+    proto: udp
+  tags:
+    - firewall
+
+- name: Start service bind, if not started
+  systemd:
+    name: bind9
+    state: restarted
+
+- name: restart systemd-resolved service
+  service:
+    name: systemd-resolved.service
+    state: restarted
