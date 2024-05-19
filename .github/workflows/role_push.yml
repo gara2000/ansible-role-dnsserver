@@ -1,18 +1,18 @@
 name: CI of ansible-galaxy role
 
-  on:
-    push:
-      branch: ["main"]
-    pull_request:
-      branch: ["main"]
+on:
+  push:
+    branch: ["main"]
+  pull_request:
+    branch: ["main"]
 
-    workflow_dispatch:
+  workflow_dispatch:
 
-  jobs:
-    push:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-        - name: Push role to ansible-galaxy
-          run: ansible-galaxy role import --token {{ GALAXY_TOKEN }}
+      - name: Push role to ansible-galaxy
+        run: ansible-galaxy role import --token {{ GALAXY_TOKEN }}
