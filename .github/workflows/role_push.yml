@@ -23,4 +23,4 @@ jobs:
           echo ${{env.REPO_NAME}}
 
       - name: Push role to ansible-galaxy
-        run: ansible-galaxy role import --token ${{GALAXY_TOKEN}} ${{github.GITHUB_REPOSITORY_OWNER}} ${{env.REPO_NAME}}
+        run: ansible-galaxy role import --token ${{secrets.GALAXY_TOKEN}} ${{github.GITHUB_REPOSITORY_OWNER}} ${{env.REPO_NAME}}
