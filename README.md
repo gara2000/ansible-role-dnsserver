@@ -26,6 +26,7 @@ Example Playbook
 
 ```bash
 - hosts: servers
+  become: yes
   vars:
     domain: "my_domain.net"
     dnsserver_ip: "192.168.60.4"
